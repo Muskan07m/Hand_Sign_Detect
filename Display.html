@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Sign Detection</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            /* Dark background color */
+            color: #ffffff;
+            /* Light text color */
+        }
+
+        /* Header styles */
+        header {
+            background-color: #333333;
+            /* Darker background color for header */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        /* Logo styles */
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ffffff;
+            /* Light text color */
+        }
+
+        /* Navigation menu styles */
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav li {
+            display: inline;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            /* Light text color */
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #555555;
+            /* Darker background color on hover */
+        }
+
+        /* CTA button styles */
+        .cta-button {
+            padding: 10px 20px;
+            background-color: red;
+            /* Green button color */
+            color: #ffffff;
+            /* Light text color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #45a049;
+            /* Darker green button color on hover */
+        }
+
+
+        .hero {
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            /* Adjust height as needed */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 50px;
+        }
+
+        /* Headline styles */
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        /* Subheadline styles */
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        /* CTA Button styles */
+        .hero .cta-button {
+            padding: 15px 30px;
+            background-color: red;
+            color: #ffffff;
+            /* Light text color */
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero .cta-button:hover {
+            background-color: #45a049;
+            /* Darker green button color on hover */
+        }
+
+        .features {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .feature-card {
+            background-color: #333333;
+            /* Darker background color */
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card img {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .how-it-works {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .how-it-works h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .step {
+            margin-bottom: 50px;
+        }
+
+        .step img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .step h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            font-size: 18px;
+        }
+
+        .testimonials {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .testimonial-card {
+            background-color: #333333;
+            /* Darker background color */
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card blockquote {
+            font-size: 24px;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card cite {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .about-us {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .about-us h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .company-overview,
+        .team-members,
+        .mission-vision-values {
+            margin-bottom: 50px;
+        }
+
+        .member {
+            margin-top: 30px;
+        }
+
+        .member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .member p {
+            font-size: 20px;
+        }
+
+        .contact {
+            padding: 50px;
+            text-align: center;
+        }
+
+
+        .contact-info {
+            margin-bottom: 50px;
+        }
+
+        .contact-info p {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .contact-form h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .contact-form button {
+            background-color: red;
+            color: #ffffff;
+            /* Light text color */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #45a049;
+            /* Darker green button color on hover */
+        }
+
+        .footer {
+            background-color: #333333;
+            /* Darker background color */
+            padding: 20px 50px;
+            text-align: center;
+        }
+
+        .social-media .icon {
+            margin: 0 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-media .icon:hover {
+            transform: scale(1.2);
+            /* Scale up icon on hover */
+        }
+
+        .social-media .icon img {
+            width: 30px;
+            /* Set width */
+            height: 30px;
+            /* Set height */
+            margin: 5px;
+            /* Add some margin for spacing */
+            border-radius: 50%;
+            /* Make the images round */
+            transition: transform 0.3s ease;
+            /* Add a smooth transition on hover */
+        }
+
+        .Features {
+            padding: 20px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .CTA button {
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <!-- Logo -->
+        <a href="#" class="logo">HandSignDetection</a>
+
+        <!-- Navigation Menu -->
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#" id="Features-link">Features</a></li>
+                <li><a href="#" id="how-it-works-link">How It Works</a></li>
+                <li><a href="#" id="about-us-link">About Us</a></li>
+                <li><a href="#" id ="contact">Contact</a></li>
+            </ul>
+        </nav>
+        <!-- CTA Button -->
+        <div class="CTA">
+            <button id="data-coll-btn" class="cta-button">Data Collection</button>
+            <button id="train-button" class="cta-button">Train</button>
+        </div>
+    </header>
+
+    <div class="how-it-works" style="display:none;">
+        <h2>How It Works</h2>
+
+        <!-- Steps -->
+        <div class="testimonial-card">
+            <h3>Step 1</h3>
+            <h3> Capture Hand Gesture</h3>
+            <p>Click on Try Demo Button to capture your hand gesture.</p>
+        </div>
+        <div class="testimonial-card">
+            <h3>Step 2</h3>
+            <h3>Hand Sign Detection</h3>
+            <p>Our advanced algorithms analyze and detect the hand sign in real-time.</p>
+        </div>
+        <div class="testimonial-card">
+            <h3>Step 3</h3>
+            <h3>Interpretation & Interaction</h3>
+            <p>The detected hand sign is translated into text on the webcam.</p>
+        </div>
+
+        <!-- Add more steps as needed -->
+
+    </div>
+    <div class="Features" style="display:none;">
+        <h1>Features and Applications of Hand Sign Detection</h1>
+        <br></br>
+        <!-- Steps -->
+        <div class="feature-card">
+            <h3>Sign Language Translation</h3>
+            <p>Convert sign language gestures into text into your webcam</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Multiple Gesture Support</h3>
+            <p>These systems can recognize a wide range of hand gestures, including but not limited to alphabets in sign
+                language, numbers, and custom-defined gestures.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>HealthCare</h3>
+            <p>Assistive technologies for individuals with physical disabilities, allowing them to control devices and
+                communicate more effectively.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Security</h3>
+            <p>In some applications, hand sign detection can be used as a biometric authentication method, providing an
+                additional layer of security based on unique hand gestures.</p>
+        </div>
+
+
+        <!-- Add more steps as needed -->
+
+    </div>
+
+
+    <div class="about-us" style="display:none;">
+        <h2>About Us</h2>
+
+        <!-- Company Overview -->
+
+        <div class="company-overview">
+            <h3>Company Overview</h3>
+            <p>We are committed to revolutionizing communication through advanced hand sign detection technology.</p>
+        </div>
+
+        <!-- Team Members -->
+        <div class="Creator">
+
+            <div class="member">
+                <img src="image/Muskan.jpg" alt="Owner Photo">
+                <p>Muskan Kumari - CEO</p>
+            </div>
+
+        </div>
+
+        <!-- Mission, Vision, and Values -->
+
+        <div class="mission-vision-values">
+            <h3>Mission, Vision, and Values</h3>
+            <p><strong>Mission:</strong> To empower individuals with innovative hand sign detection solutions.</p>
+            <p><strong>Vision:</strong> To become a global leader in hand sign recognition technology.</p>
+            <p><strong>Values:</strong> Innovation, Accessibility, Integrity, and Excellence.</p>
+        </div>
+
+    </div>
+
+
+    <section class="hero">
+        <div id="result"></div>
+
+        <!-- Headline -->
+        <h1>Revolutionizing Communication<br>with Hand Sign Detection</h1>
+
+        <!-- Subheadline -->
+        <p>Unlock a new dimension of interaction and accessibility.</p>
+
+        <!-- CTA Button -->
+        <button id="try-demo-btn" class="cta-button">Try Demo</button>
+
+        <!-- Video element for webcam feed -->
+        <video id="webcam-feed" autoplay playsinline style="display:none;"></video>
+    </section>
+
+
+    <section class="features">
+        <h2>Key Features</h2>
+
+        <!-- Feature Cards -->
+        <div class="feature-card">
+            <img src="image/sign.png" alt="Feature Icon 1">
+            <h3>Sign Language Recognition</h3>
+            <p>Effortlessly translate sign language gestures into text .</p>
+        </div>
+
+        <div class="feature-card">
+            <img src="image/Gesture.jpeg" alt="Feature Icon 2">
+            <h3>Gesture Control Systems</h3>
+            <p>Control devices and applications using intuitive hand gestures.</p>
+        </div>
+
+        <div class="feature-card">
+            <img src="image/Human.png" alt="Feature Icon 3">
+            <h3>Human-Computer Interaction</h3>
+            <p>Enhance user experience with natural and interactive hand sign inputs.</p>
+        </div>
+
+        <!-- Add more feature cards as needed -->
+
+    </section>
+
+    <section class="testimonials">
+        <h2>What Our Users Are Saying</h2>
+
+        <!-- Testimonial Cards -->
+        <div class="testimonial-card">
+            <blockquote>
+                "Amazing hand sign detection technology! It's revolutionizing the way we communicate."
+            </blockquote>
+            <cite>- Mansi Tekale</cite>
+        </div>
+
+        <div class="testimonial-card">
+            <blockquote>
+                "Incredible features and accurate hand gesture recognition. Highly recommended!"
+            </blockquote>
+            <cite>- Shrija Hisariya</cite>
+        </div>
+
+        <!-- Add more testimonial cards as needed -->
+
+    </section>
+
+
+    <section class="contact" id="contact-section">
+        <h2>Contact Us</h2>
+
+        <!-- Contact Information -->
+        <div class="contact-info">
+            <p>Email: <a href="mailto:muskankumari200407@gmail.com"
+                    style="color: white;">muskankumari200407@gmail.com</a></p>
+            <p>Phone: <a href="tel:+918235612515" style="color: white;">+ (91) 8235612515</a></p>
+            <p>Address: Kashmere Gate, Delhi, India</p>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form">
+            <h3>Send Us a Message</h3>
+            <form>
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+
+    </section>
+
+
+    <!-- Content goes here -->
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <!-- Footer Navigation -->
+
+        <!-- Copyright Information -->
+        <div class="copyright">
+            <p>&copy; 2024 Hand Sign Detection. All rights reserved.</p>
+        </div>
+
+        <!-- Social Media Icons -->
+        <div class="social-media">
+            <a href="#" class="icon"><img src="image/facebbok.png" alt="Facebook"></a>
+            <a href="#" class="icon"><img src="image/twitter.png" alt="Twitter"></a>
+            <a href="#" class="icon"><img src="image/instagram.jpeg" alt="Instagram"></a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("DOMContentLoaded event triggered");
+            const dataCollButton = document.getElementById("data-coll-btn");
+            const tryDemoButton = document.getElementById("try-demo-btn");
+            const howItWorksLink = document.getElementById("how-it-works-link");
+            const howItWorksSection = document.querySelector(".how-it-works");
+            const FeatureLink = document.getElementById("Features-link");
+            const FaeturesSection = document.querySelector(".Features");
+            const aboutLink = document.getElementById("about-us-link");
+            const aboutSection = document.querySelector(".about-us");
+            const contactLink = document.getElementById('contact');
+            const contactSection = document.getElementById("contact-section");
+            let scrollToTop = false;
+
+
+            dataCollButton.addEventListener("click", async function () {
+                console.log("Data Coolection button clicked");
+
+                // Execute the try_demo endpoint to run test.py
+                try {
+                    const response = await fetch('/data_coll', { method: 'POST' });
+                    const data = await response.json();
+                    console.log("Response:", data);
+                } catch (error) {
+                    console.error("Error running data-coolection:", error);
+                }
+            });
+
+            tryDemoButton.addEventListener("click", async function () {
+                console.log("Try Demo button clicked");
+
+                // Execute the try_demo endpoint to run test.py
+                try {
+                    const response = await fetch('/try_demo', { method: 'POST' });
+                    const data = await response.json();
+                    console.log("Response:", data);
+                } catch (error) {
+                    console.error("Error running try_demo:", error);
+                }
+            });
+
+            howItWorksLink.addEventListener("click", function (event) {
+                console.log("How It Works link clicked");
+
+                event.preventDefault(); // Prevent the default action of the link
+
+                // Toggle the display of the "How It Works" section
+                if (howItWorksSection.style.display === "none" || howItWorksSection.style.display === "") {
+                    howItWorksSection.style.display = "block"; // Show the section
+                } else {
+                    howItWorksSection.style.display = "none"; // Hide the section
+                }
+            });
+
+            FeatureLink.addEventListener("click", function (event) {
+                console.log("Features link clicked");
+
+                event.preventDefault(); // Prevent the default action of the link
+
+                // Toggle the display of the "How It Works" section
+                if (FaeturesSection.style.display === "none" || FaeturesSection.style.display === "") {
+                    FaeturesSection.style.display = "block"; // Show the section
+                } else {
+                    FaeturesSection.style.display = "none"; // Hide the section
+                }
+            });
+
+            aboutLink.addEventListener("click", function (event) {
+                console.log("About-Us link clicked");
+
+                event.preventDefault(); // Prevent the default action of the link
+
+                // Toggle the display of the "How It Works" section
+                if (aboutSection.style.display === "none" || aboutSection.style.display === "") {
+                    aboutSection.style.display = "block"; // Show the section
+                } else {
+                    aboutSection.style.display = "none"; // Hide the section
+                }
+            });
+
+            $('#train-button').click(function () {
+                $('#result').text('Please wait, training is in process...');  // Update message immediately upon clicking
+                $('#result').css('font-size', '24px');
+
+                $.ajax({
+                    url: '/train',
+                    type: 'POST',
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            $('#result').text('Training completed. Validation Accuracy: ' + response.accuracy.toFixed(4));
+                            // Set font size to larger size
+                            $('#result').css('font-size', '24px');
+                            // Clear the message after 10 seconds
+                            setTimeout(function () {
+                                $('#result').text('');
+                            }, 10000);  // 10 seconds
+                        } else {
+                            $('#result').text('Error: ' + response.message);
+                        }
+                    },
+                    error: function (error) {
+                        $('#result').text('Error: ' + error.statusText);
+                    }
+                });
+            });
+
+            contactLink.addEventListener("click", function (event) {
+                event.preventDefault(); // Prevent the default action of the link
+            
+                if (scrollToTop) {
+                    // Scroll to the top of the body
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                    console.log("Scrolled to Top of Body"); // Debugging log
+                } else {
+                    // Scroll to the contact section
+                    contactSection.scrollIntoView({ behavior: "smooth" });
+                    console.log("Scrolled to Contact Section"); // Debugging log
+                }
+            
+                // Toggle the scroll target
+                scrollToTop = !scrollToTop;
+            });
+
+            
+        });
+    </script>
+</body>
+
+</html>
