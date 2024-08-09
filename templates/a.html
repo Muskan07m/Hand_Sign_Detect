@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color:#f9f9ff;
+        }
+
+        header {
+            background: #f9f9ff;
+            padding-left: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            z-index: 1000;
+            
+        }
+       
+        /* Navigation menu styles */
+        .name{
+            color: #523114;
+            font-size: 30px;
+            font-weight: 700;
+        }
+        nav ul {
+            order: 2;
+            display: flex ;
+            justify-content: flex-end;
+            align-content: center;
+            align-items: center;
+            flex-basis: auto;
+            flex-grow: 1;
+            margin-right: 60px;
+        }
+           
+        nav li {
+            display: inline;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-weight: 700;
+            color: #523114;
+            padding: 10px 15px;
+            border-radius: 0;
+            opacity: 1;
+            padding-bottom: 3px;
+            background-attachment: transparent;
+            border-color: transparent;
+            
+        }
+
+        nav a:hover {
+            border-bottom: 1px solid #523114;
+        }
+       
+        .hero {
+            background-size: cover;
+            background-image: url({{ url_for('static', filename='images/header.png') }});
+            background-position: center;
+            height: 722px;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            z-index: 1;
+        }
+
+        .line1{
+            display: flex;
+            justify-content: center;
+            width: 100px;
+            border: 5px solid #de7d29;
+        }
+
+        /* Subheadline styles */
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .container{
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .btn .cta-button {
+            padding: 15px 30px;
+            background-color: rgb(214, 173, 131);
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            text-decoration: none; 
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn .cta-button:hover {
+            background-color: rgb(235, 172, 110);
+        }
+        
+          /* About Section Start */
+        .about {
+            background-color: #f4e5d6;
+            margin-top: 0;
+            width: 100%;
+        }
+        
+        .about-container {
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+            margin: 20px;
+            gap:20px;
+           
+        }
+
+        
+        .about-image{
+            margin-top: 15;
+            width: 40%;
+        }
+
+        .about-image img{
+            width: 100%;
+        }
+        
+        .about-text {
+           
+            display: flex;
+            flex-direction: column;
+            background-color: #f9f9ff;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            width: 65%;  
+            padding: 20;
+        }
+
+        .text {
+            max-width: 80%;  
+            margin: 0 auto;  
+        }
+
+        
+
+        .head{
+            margin-top: 0;
+            font-weight: 700;
+            font-size: 30px;
+            justify-content: center;
+        }
+        
+        .text {
+            display: flex;
+            margin:0 70px ;
+            margin-top: 50px;
+        
+        }
+        
+        .about-container1{
+            display: flex;
+            margin-top: 0;
+            width:100%;
+        }
+        
+        .about-image2{
+            width: 75%;
+        }
+        .about-image2 img{
+           width: 100%;
+        }
+
+        .box{
+            display: flex;
+            flex-direction: column;
+            background-color: #f9f9ff;
+            width: 500px;
+            height: 500px;
+            justify-content: center;
+        }
+
+        .head1{
+            font-size: 47px;
+            font-weight: 700;
+            margin: 0 50px;
+        }
+
+        
+        .line{
+            width: 100px;
+            border: 5px solid #de7d29;
+            margin: 50px;
+        }
+        
+
+        .text1{
+            margin: 0 50px;
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            
+            .about-container, .about-container1{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        /* about section end*/
+
+        /* Services section start*/
+        .services{
+            background-color: #f4e5d6;
+        }
+
+        .heading{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .heading h3{
+            margin-top: 100px;
+            font-size: 30px;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        .line2{
+            display: flex;
+            width:60px;
+            border: 2px solid #de7d29;
+        }
+
+        .features{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap:30px;
+            margin-top: 50px;
+        }
+
+        .feature{
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; 
+            width:300px; 
+            margin-bottom: 100px;
+            
+        }
+        .feature img{
+            border-radius: 50%;
+            width:130px;
+            height: 130px;
+        }
+
+        .feature h3{
+            margin-top: 30px;
+            margin-bottom: 3px;
+            font-weight: 700;
+        }
+       
+        /* Responsive */
+        @media (max-width: 768px) {
+            
+           .features{
+              display: flex;
+              flex-direction: column;
+               gap:80px;
+            }
+            .feature {
+                width: max-content;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Services section end*/
+
+         /* Contact section Start */
+        .contact{
+            text-align: center;
+        }
+
+        .info{
+            display: flex;
+            margin-top: 30px;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .contact-info{
+            margin-top: 30px;
+        }
+
+        .contact-info p {
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .contact-form{
+            display: flex;
+        }
+
+        .contact-form h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form button {
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #de7d29;
+            border-radius: 5px;
+            width: 40vw;
+        }
+
+        .contact-form button {
+            background-color: #de7d29;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 1;
+        }
+
+        .contact-form button:hover {
+            background-color: #f2780d;
+        }
+
+         /* Responsive */
+        @media (max-width: 760px) {
+            
+            .info{
+                display: flex;
+                flex-direction: column;
+            }
+            .contact-info{
+                margin-top: 0;
+            }
+
+            .contact-form{
+                display: flex;
+                padding: 10px;
+                margin-top: 50px;
+            }
+
+            .contact-form input,
+            .contact-form textarea,
+            .contact-form button {
+                width: 90vw;
+            }
+        }
+
+         /* Contact section End */
+
+         /* Testimonial section Start*/
+
+         .testimonials{
+            background-color: #f4e5d6;
+         }
+
+         .testimonials-container{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 100px;
+            padding-top:30px;
+            gap:30px;
+            
+         }
+
+         .testimonial-card{
+            display: flex;
+            flex-direction: column;
+            height: 350px;
+            padding: 50px ;
+            background-color: white;
+            border-radius: 5px;
+            border-top: 3px solid #de7d29;
+         }
+
+         .testimonial-card img{
+            width:60%;
+            height:150px;
+         }
+
+         .names{
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 0;
+         }
+         
+          /* Responsive */
+         @media (max-width: 1000px) {
+            
+           .testimonials-container{
+               display: flex;
+               flex-direction: column;
+           }
+
+           .testimonial-card{
+              display: flex;
+              padding: 40px;
+              width: 70vw;
+           }
+        }
+
+         /* Testimonial section end*/
+
+         /* Footer section start*/
+         .footer-container{
+            display: flex;
+            justify-content: space-around;
+            padding: 30px;
+         }
+
+         .foooter-text{
+            display: flex;
+            margin-top: 30px;
+         }
+
+         .links{
+            margin-top: 30px;
+         }
+
+         .links nav a{
+            color: black;
+            border: none;
+            font-weight: 500;
+         }
+    
+         .links nav a:hover{
+            color: #de7d29;
+         }
+
+         
+         @media (max-width: 768px) {
+            .footer-container{
+                display: flex;
+                flex-direction: column;
+            }
+
+            .links{
+                margin-top: 0;
+            }
+         }
+
+         /* Footer section end*/
+        
+    </style>
+</head>
+<body>
+    <header>  
+        <h2 class ='name'>GestureGuard</h2>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+            </ul>
+        </nav> 
+    </header>
+
+    <section id="home" class="hero" >
+            <div id="result"></div>
+            <h1>Revolutionizing Communication with<br>Hand Sign Detection Technology</h1>
+            <div class="line1"></div>
+            <p>Transforming gestures into text and control with ease</p>
+    </section>
+
+    <section class="btn">
+        <div class="container">
+            <button id="data-coll-btn" class="cta-button">Image Collection</button>
+            <button id="train-button" class="cta-button">Train Images</button>
+            <button id="try-demo-btn" class="cta-button">Try Demo</button>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="{{ url_for('static', filename='images/about1.png') }}" alt="about" height="400px">
+            </div>
+            <div class="about-text">
+                <h1 class="head">About GestureGuard</h1>
+                <div class="line1"></div>
+                <div class="text">
+                    GestureGuard is dedicated to advancing communication through innovative hand sign detection technology. Our  platform utilizes cutting-edge algorithms to interpret hand signs in real-time, converting them into text on the webcam.With GestureGuard, users can effortlessly convert sign language gestures into text, control devices using natural hand gestures, and elevate user interaction with intuitive hand sign inputs.
+                </div>
+            </div>
+        </div>
+        <div class="about-container1">
+            <div class="box">
+                <h3 class="head1">Experience the Future of Communication</h3>
+                <div class="line"></div>
+                <p class="text1">Seamless translation and interactive control at your fingertips</p>
+            </div>
+            <div class="about-image2">
+                <img src="{{ url_for('static', filename='images/about2.png') }}" alt="about"  height="500px" width="1000px">
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="heading">
+            <h3>SERVICES</h3>
+            <div class="line2"></div>
+        </div>
+        <div class="features">
+            <div class="feature">
+                <img src="{{ url_for('static', filename='images/img1.webp') }}" alt="img1" >
+                    <h3>Real-time Hand Sign Translation</h3>
+                    <p>Effortlessly translate sign language gestures into text with our advanced detection technology</p>  
+            </div>
+            <div class="feature">
+                <img src="{{ url_for('static', filename='images/img2.webp') }}" alt="img2" >
+                    <h3>Device Control with Hand Gestures</h3>
+                    <p>Control devices using intuitive hand gestures for a seamless user experience </p> 
+            </div>
+            <div class="feature">
+                <img src="{{ url_for('static', filename='images/img3.webp') }}" alt="img1" >
+                    <h3>Enhanced User Interaction</h3>
+                    <p>Elevate user experience with natural and interactive hand sign inputs </p> 
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="heading">
+            <h3>CONTACT</h3>
+            <div class="line2"></div>
+        </div>
+        <!-- Contact Information -->
+        <div class="info">
+            <div class="contact-info">
+                <p>Kashmere Gate, New Delhi, India</p>
+                <p>Phone: <a href="tel:+918235612515" style="color: #de7d29;;">+ (91) 8235612515</a></p>
+                <p>Email: <a href="mailto:muskankumari200407@gmail.com"
+                        style="color: #de7d29;;">muskankumari200407@gmail.com</a></p>
+               
+            </div>
+    
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <form>
+                    <input type="text" name="name" placeholder="Name" required>
+                    <input type="text" name="phone" placeholder="Phone" required>
+                    <input type="email " name="email" placeholder="Email address" required>
+                    <textarea name="message" placeholder="Message" rows="4" required></textarea>
+                    <button type="submit">CONTACT US</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <div class="heading">
+            <h3>TESTIMONIALS</h3>
+            <div class="line2"></div>
+        </div>
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <p>Using GestureGuard has transformed the way I communicate with sign language. It's truly revolutionary!</p>
+                <img src="{{ url_for('static', filename='images/test1.webp') }}" alt="test1" >
+                <p class="names">Shrija</p>
+                <p>Sign language user</p>
+            </div>
+            <div class="testimonial-card">
+                <p>Controlling devices with hand gestures feels like something out of a sci-fi movie. GestureGuard makes it a reality!</p>
+                <img src="{{ url_for('static', filename='images/test2.webp') }}" alt="test2" >
+                <p class="names">Prem</p>
+                <p>Tech enthusiast</p>
+            </div>
+            <div class="testimonial-card">
+                <p>The enhanced user interaction with GestureGuard is pawsitively amazing! Woof! </p>
+                <img src="{{ url_for('static', filename='images/test3.webp') }}" alt="images/test3.webp" >
+                <p class="names">Buddy <br> </p>
+                <p>Canine user</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-text">
+                <h3>GestureGuard</h3>
+                <P>Copyright © 2024 All rights reserved</P>
+            </div>
+            <div class="links">
+                <nav>
+                    <ul>
+                        <li><a href="#" id="Home">Home</a></li>
+                        <li><a href="#" id="About">About</a></li>
+                        <li><a href="#" id="Services">Services</a></li>
+                        <li><a href="#" id ="contact">Contact</a></li>
+                        <li><a href="#" id="Testimonials">Testimonials</a></li>
+                        
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const navLinks = document.querySelectorAll("nav ul li a");
+
+            navLinks.forEach((link) => {
+                link.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    
+                    const targetId = this.getAttribute("href").substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        const yOffset = -80; // Adjust this value to account for the fixed header
+                        const y = targetSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                        
+                        window.scrollTo({ top: y, behavior: 'smooth' });
+                    }
+                });
+            });
+
+            const dataCollButton = document.getElementById("data-coll-btn");
+            const tryDemoButton = document.getElementById("try-demo-btn");
+
+            dataCollButton.addEventListener("click", async function () {
+                console.log("Data Collection button clicked");
+
+                try {
+                    const response = await fetch('/data_coll', { method: 'POST' });
+                    const data = await response.json();
+                    console.log("Response:", data);
+                } catch (error) {
+                    console.error("Error running data-collection:", error);
+                }
+            });
+
+            tryDemoButton.addEventListener("click", async function () {
+                console.log("Try Demo button clicked");
+
+                try {
+                    const response = await fetch('/try_demo', { method: 'POST' });
+                    const data = await response.json();
+                    console.log("Response:", data);
+                } catch (error) {
+                    console.error("Error running try_demo:", error);
+                }
+            });
+
+            $('#train-button').click(function () {
+                $('#result').text('Please wait, training is in process...');  // Update message immediately upon clicking
+                $('#result').css('font-size', '24px');
+
+                $.ajax({
+                    url: '/train',
+                    type: 'POST',
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            $('#result').text('Training completed. Validation Accuracy: ' + response.accuracy.toFixed(4));
+                            // Set font size to larger size
+                            $('#result').css('font-size', '24px');
+                            // Clear the message after 10 seconds
+                            setTimeout(function () {
+                                $('#result').text('');
+                            }, 10000);  // 10 seconds
+                        } else {
+                            $('#result').text('Error: ' + response.message);
+                        }
+                    },
+                    error: function (error) {
+                        $('#result').text('Error: ' + error.statusText);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+</body>
+</html>
